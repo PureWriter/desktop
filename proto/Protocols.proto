@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package protocol;
+
+option java_package = "com.drakeet.purewriter.protocol";
+option java_outer_classname = "PureWriterProtocol";
+
+message Message {
+  int32 id = 1;
+  int32 version = 2;
+  string contentType = 3;
+  string messageType = 4;
+  string content = 5;
+  bytes data = 6;
+  uint64 time = 7;
+}

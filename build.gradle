@@ -1,0 +1,85 @@
+buildscript {
+  dependencies {
+    classpath group: 'de.dynamicfiles.projects.gradle.plugins', name: 'javafx-gradle-plugin', version: '8.8.2'
+  }
+
+  repositories {
+    mavenLocal()
+    mavenCentral()
+  }
+}
+
+plugins {
+  id 'java'
+  id 'org.jetbrains.kotlin.jvm' version '1.3.41'
+}
+apply plugin: 'javafx-gradle-plugin'
+
+group 'com.drakeet.purewriter'
+version '0.1.6'
+
+sourceCompatibility = 1.8
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+}
+
+def VERSION = version
+
+jar {
+  manifest {
+    attributes 'Main-Class': 'com.drakeet.purewriter.Main'
+    attributes 'Version': VERSION
+  }
+  from {
+    configurations.compile.collect {
+      it.isDirectory() ? it : zipTree(it)
+    }
+  }
+}
+
+jfx {
+  appName = "Pure Writer"
+  nativeReleaseVersion = VERSION
+  mainClass = 'com.drakeet.purewriter.Main'
+  vendor = 'drakeet.com'
+  libFolderName = "libs"
+  addPackagerJar = true
+  copyAdditionalAppResourcesToJar = true
+  skipCopyingDependencies = false
+  bundler = "ALL"
+}
+
+dependencies {
+  testCompile group: 'junit', name: 'junit', version: '4.12'
+
+  compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+  // compile "com.squareup.okio:okio:2.3.0"
+  compile 'io.netty:netty-all:4.1.38.Final'
+  compile 'com.google.protobuf:protobuf-java:3.9.1'
+  compile 'io.reactivex.rxjava2:rxjava:2.2.11'
+  compile 'com.jakewharton.rxrelay2:rxrelay:2.1.1'
+  compile 'com.google.code.gson:gson:2.8.5'
+  compile 'io.reactivex:rxjavafx:2.0.2'
+}
+
+compileKotlin {
+  kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+  kotlinOptions.jvmTarget = "1.8"
+}
+
+task generateJar(type: Copy, dependsOn: build) {
+  from('build/libs') {
+    include "PureWriter-${VERSION}.jar"
+  }
+  into('jar')
+}
+build.finalizedBy generateJar
+
+task deleteJar(type: Delete, dependsOn: clean) {
+  delete 'jar'
+}
+clean.finalizedBy deleteJar

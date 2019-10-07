@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<!--
+  ~ Copyright (C) 2019 Drakeet Xu <drakeet@drakeet.com>
+  ~
+  ~ This file is part of Pure Writer Desktop
+  ~
+  ~ Pure Writer Desktop is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ rebase-server is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+  ~
+  ~ See the GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with rebase-server. If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<StackPane prefHeight="540.0" prefWidth="720.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.221" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drakeet.purewriter.PureWriter">
+
+    <TextArea fx:id="contentView" maxWidth="720.0" prefHeight="540.0" promptText="Content" wrapText="true" BorderPane.alignment="CENTER">
+        <padding>
+            <Insets left="24.0" right="24.0"/>
+        </padding>
+        <font>
+            <Font name="Source Han Sans CN" size="16.0"/>
+        </font>
+    </TextArea>
+
+    <Label fx:id="emptyView" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: white;" styleClass="centeredTextArea" textAlignment="CENTER" BorderPane.alignment="CENTER">
+        <font>
+            <Font name="Source Han Sans CN" size="18.0"/>
+        </font>
+    </Label>
+    <VBox fx:id="ipLayout" alignment="CENTER" StackPane.alignment="CENTER" style="-fx-background-color: white;">
+        <children>
+            <Label fx:id="ipLabelCN" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="720.0" styleClass="centeredTextArea" textAlignment="CENTER">
+                <font>
+                    <Font name="Source Han Sans CN" size="18.0"/>
+                </font>
+                <VBox.margin>
+                    <Insets/>
+                </VBox.margin>
+            </Label>
+            <TextField fx:id="ipView" alignment="CENTER" maxWidth="240.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="400.0" promptText="IP (eg. 192.168.43.1)">
+                <VBox.margin>
+                    <Insets bottom="24.0" top="24.0"/>
+                </VBox.margin>
+                <font>
+                    <Font size="24.0"/>
+                </font>
+            </TextField>
+            <Label fx:id="ipLabelEN" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="centeredTextArea" textAlignment="CENTER">
+                <font>
+                    <Font name="Source Han Sans CN" size="18.0"/>
+                </font>
+                <VBox.margin>
+                    <Insets/>
+                </VBox.margin>
+            </Label>
+        </children>
+    </VBox>
+
+</StackPane>
