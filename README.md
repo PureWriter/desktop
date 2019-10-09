@@ -12,6 +12,10 @@ https://writer.drakeet.com/desktop
 ./gradlew jfxNative
 ```
 
+### Requirements
+
+* JDK 8
+
 ### LICENSE
 
 =======
