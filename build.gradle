@@ -49,6 +49,9 @@ jfx {
   copyAdditionalAppResourcesToJar = true
   skipCopyingDependencies = false
   bundler = "ALL"
+  bundleArguments = [
+      "applicationCategory": "Utility;"
+  ]
 }
 
 dependencies {
