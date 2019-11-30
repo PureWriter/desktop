@@ -16,4 +16,4 @@ jobs:
         java-package: jdk+fx
         architecture: x64
     - name: Build with jfxNative
-      run: ./gradlew jfxNative
+      run: ./gradlew jfxNative --scan
