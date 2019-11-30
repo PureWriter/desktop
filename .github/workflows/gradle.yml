@@ -17,3 +17,9 @@ jobs:
         architecture: x64
     - name: Build with jfxNative
       run: ./gradlew jfxNative --scan
+    - name: Upload to release
+      uses: JasonEtco/upload-to-release@master
+      with:
+        args: build/jfx/native
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
