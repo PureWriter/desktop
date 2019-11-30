@@ -234,27 +234,10 @@ class PureWriter : Initializable {
   private var clientDisposable: Disposable? = null
 
   private fun startNettyClient(ip: String) {
-    Log.d("startNettyClient: " + stackTrace(this, 10))
     if (ip.isBlank()) return
     clientDisposable?.dispose()
     clientDisposable = Completable.fromAction { client.start(ip, 19621) }
       .subscribeOn(Schedulers.newThread())
       .subscribe({}, { it.printStackTrace() })
-  }
-
-  fun stackTrace(self: Any, limit: Int = 3): String? {
-    val result = StringBuilder()
-    var length = 0
-    for ((i, it) in Thread.currentThread().stackTrace.withIndex()) {
-      if (i < 4 || it.methodName.contains("\$default")) continue
-      if (length > 0) result.append(" <- ")
-      if (self.javaClass.name != it.className) {
-        result.append(it.className).append(".")
-      }
-      result.append(it.methodName.replace("\$app_debug", ""))
-      length++
-      if (length >= limit) break
-    }
-    return result.toString()
   }
 }
