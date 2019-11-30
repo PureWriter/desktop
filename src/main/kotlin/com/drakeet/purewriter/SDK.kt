@@ -41,7 +41,7 @@ fun Channel.sendArticle(title: String, content: String, start: Int, end: Int) {
 fun newJsonMessage(id: Int = 0, type: String, any: Any = ""): PureWriterProtocol.Message {
   return PureWriterProtocol.Message.newBuilder()
     .setId(id)
-    .setVersion(1)
+    .setVersion(2)
     .setContentType("JSON")
     .setMessageType(type)
     .setContent(any.toJson())
