@@ -20,5 +20,6 @@
 
 package com.drakeet.purewriter
 
+class Pong
 class EmptyArticle
 class ChannelActive(val active: Boolean)

@@ -29,10 +29,12 @@ class MessageHandler : SimpleChannelInboundHandler<PureWriterProtocol.Message>()
 
   override fun channelRead0(context: ChannelHandlerContext, message: PureWriterProtocol.Message) {
     Platform.runLater {
+      Log.d("message.messageTyp: ${message.messageType}")
       when (message.messageType) {
         "ArticleMessage" -> RxBus.post(message.content.jsonTo(ArticleMessage::class))
         "EmptyArticleMessage" -> RxBus.post(EmptyArticle())
         "DisconnectMessage" -> context.disconnect()
+        "Pong" -> RxBus.post(Pong())
       }
     }
   }

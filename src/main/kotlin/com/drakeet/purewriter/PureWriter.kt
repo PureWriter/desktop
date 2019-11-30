@@ -128,6 +128,8 @@ class PureWriter : Initializable {
       .subscribe {
         if (channel?.isActive != true) {
           showIpViews()
+        } else {
+          PingPongDelegate.ping(channel!!)
         }
       }
   }
@@ -162,8 +164,11 @@ class PureWriter : Initializable {
 
   private fun showIpViews() {
     if (ipLayout.isVisible && isIpViewsInitialized) {
-      if (ipView.text.isNotBlank()) {
+      if (ipView.text.isNotBlank() && !PingPongDelegate.isJustDisconnected) {
         ipObserver.changed(null, ipView.text, ipView.text)
+      } else {
+        ipView.text = ""
+        PingPongDelegate.isJustDisconnected = false
       }
       return
     }
@@ -172,7 +177,7 @@ class PureWriter : Initializable {
       未连接或与手机断开
       请打开纯纯写作 Android 版并点击其顶部的云图标获得 IP 地址填于下方
       一旦输入正确 IP，它将自动连接
-      注意：当前桌面版只支持与纯纯写作 v13.4 或以上版本搭配使用
+      注意：当前桌面版只支持与纯纯写作 v13.9.3 或以上版本搭配使用
     """.trimIndent()
 
     ipLabelEN.text = """
@@ -181,7 +186,7 @@ class PureWriter : Initializable {
       Please open Pure Writer for Android and click on its top cloud icon 
       to get an IP address into the above input field
       Once the correct IP is entered, it will be auto connected      
-      Note: The current Desktop version only works with Pure Writer v13.4 or above
+      Note: The current Desktop version only works with Pure Writer v13.9.3 or above
       
       Pure Writer Desktop v$version
     """.trimIndent()
@@ -229,10 +234,27 @@ class PureWriter : Initializable {
   private var clientDisposable: Disposable? = null
 
   private fun startNettyClient(ip: String) {
+    Log.d("startNettyClient: " + stackTrace(this, 10))
     if (ip.isBlank()) return
     clientDisposable?.dispose()
     clientDisposable = Completable.fromAction { client.start(ip, 19621) }
       .subscribeOn(Schedulers.newThread())
       .subscribe({}, { it.printStackTrace() })
+  }
+
+  fun stackTrace(self: Any, limit: Int = 3): String? {
+    val result = StringBuilder()
+    var length = 0
+    for ((i, it) in Thread.currentThread().stackTrace.withIndex()) {
+      if (i < 4 || it.methodName.contains("\$default")) continue
+      if (length > 0) result.append(" <- ")
+      if (self.javaClass.name != it.className) {
+        result.append(it.className).append(".")
+      }
+      result.append(it.methodName.replace("\$app_debug", ""))
+      length++
+      if (length >= limit) break
+    }
+    return result.toString()
   }
 }

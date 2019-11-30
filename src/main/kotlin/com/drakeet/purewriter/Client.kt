@@ -78,7 +78,11 @@ class Client {
         channel?.closeFuture()?.sync()
         Log.d("Connection is closed")
       } finally {
-        group?.shutdownGracefully()?.sync()
+        try {
+          group?.shutdownGracefully()?.sync()
+        } catch (i: InterruptedException) {
+          Log.d("Interrupted")
+        }
       }
     } catch (e: InterruptedException) {
       e.printStackTrace()
