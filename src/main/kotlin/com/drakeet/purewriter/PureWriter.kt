@@ -75,6 +75,7 @@ class PureWriter : Initializable {
       .observeOn(platform())
       .subscribe {
         if (it.active) {
+          PingPongDelegate.pong()
           // hideIP()
           // Wait for the article
         } else {
