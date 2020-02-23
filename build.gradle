@@ -16,7 +16,7 @@ plugins {
 apply plugin: 'javafx-gradle-plugin'
 
 group 'com.drakeet.purewriter'
-version '0.1.7'
+version '0.1.8'
 
 sourceCompatibility = 1.8
 
@@ -62,7 +62,7 @@ dependencies {
   // compile "com.squareup.okio:okio:2.3.0"
   compile 'io.netty:netty-all:4.1.38.Final'
   compile 'com.google.protobuf:protobuf-java:3.9.1'
-  compile 'io.reactivex.rxjava2:rxjava:2.2.11'
+  compile 'io.reactivex.rxjava2:rxjava:2.2.18'
   compile 'com.jakewharton.rxrelay2:rxrelay:2.1.1'
   compile 'com.google.code.gson:gson:2.8.5'
   compile 'io.reactivex:rxjavafx:2.0.2'
