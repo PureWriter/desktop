@@ -44,7 +44,7 @@ import java.util.*
 
 class PureWriter : Initializable {
 
-  private val version = "0.1.8"
+  private val version = "0.2"
 
   @FXML
   private lateinit var emptyView: Label
