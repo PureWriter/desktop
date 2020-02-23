@@ -64,14 +64,14 @@ class Client {
               Log.d("Connecting...")
               with(ch.pipeline()) {
                 addLast(ProtobufVarint32FrameDecoder())
-                addLast(ProtobufDecoder(PureWriterProtocol.Message.getDefaultInstance()))
-                addLast(ProtobufVarint32LengthFieldPrepender())
+                addLast(ProtobufDecoder(PureWriterProtocol.Message.getDefaultInstance()), ProtobufVarint32LengthFieldPrepender())
                 addLast(ProtobufEncoder())
                 addLast(MessageHandler())
               }
             }
           })
 
+        Log.d("bootstrap.connect().sync().channel()")
         channel = bootstrap.connect().sync().channel()
         Log.d("The server is successfully connected.")
 

@@ -87,11 +87,15 @@ class PureWriter : Initializable {
         beginSyncing()
         mainStage.title = if (it.title.isNotEmpty()) it.title else "Untitled"
         contentView.replaceText(it.content)
-        contentView.selectRange(it.selectionStart, it.selectionEnd)
+        // contentView.selectRange(it.selectionStart, it.selectionEnd)
         isSyncingSelection = false
         isSyncingTitle = false
         hideIP()
         hideEmpty()
+        // workaround to trigger focus
+        Platform.runLater {
+          contentView.selectRange(it.selectionStart, it.selectionEnd)
+        }
       }
 
     RxBus.event(EmptyArticleMessage::class)
@@ -163,6 +167,7 @@ class PureWriter : Initializable {
   private var isIpViewsInitialized = false
 
   private fun showIpViews() {
+    lastConnectingIp = null
     if (ipLayout.isVisible && isIpViewsInitialized) {
       if (ipView.text.isNotBlank() && !PingPongDelegate.isJustDisconnected) {
         ipObserver.changed(null, ipView.text, ipView.text)
@@ -240,10 +245,14 @@ class PureWriter : Initializable {
 
   private var clientDisposable: Disposable? = null
 
+  private var lastConnectingIp: String? = null
+
   private fun startNettyClient(ip: String) {
-    if (ip.isBlank()) return
+    if (lastConnectingIp == ip || ip.isBlank()) return
+    lastConnectingIp = ip
     clientDisposable?.dispose()
     clientDisposable = Completable.fromAction { client.start(ip, 19621) }
+      .retry(1)
       .subscribeOn(Schedulers.newThread())
       .subscribe({}, { it.printStackTrace() })
   }
