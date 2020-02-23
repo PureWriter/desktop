@@ -65,10 +65,10 @@ class PureWriter : Initializable {
 
   override fun initialize(location: URL?, resources: ResourceBundle?) {
     contentView.font = Font.loadFont(javaClass.getResourceAsStream("SourceHanSansCN-Light.ttf"), 16.toDouble())
-    ipLabelCN.font = Font.loadFont(javaClass.getResourceAsStream("SourceHanSansCN-Light.ttf"), 18.toDouble())
+    ipLabelCN.font = Font.loadFont(javaClass.getResourceAsStream("SourceHanSansCN-Light.ttf"), 14.toDouble())
     ipLabelEN.font = ipLabelCN.font
     emptyView.font = ipLabelCN.font
-    ipView.font = ipLabelCN.font
+    ipView.font = Font.loadFont(javaClass.getResourceAsStream("SourceHanSansCN-Light.ttf"), 18.toDouble())
     showIpViews()
 
     RxBus.event(ChannelActive::class)
@@ -177,19 +177,22 @@ class PureWriter : Initializable {
       未连接或与手机断开
       请打开纯纯写作 Android 版并点击其顶部的云图标获得 IP 地址填于下方
       一旦输入正确 IP，它将自动连接
-      提示：你可以在 IP 地址中输入中文句号来替代英文句号，比如：1。1。1。1 将会被识别为 1.1.1.1
-      注意：当前桌面版只支持与纯纯写作 【v14.7.2】 或以上版本搭配使用
+      提示：
+      * 你可以在 IP 地址中输入中文句号来替代英文句号，比如：1。1。1。1 将会被识别为 1.1.1.1
+      * 如果您的 IP 地址是以 192.168.1 开头，则您可以直接输入最后一位数字即可自动连接
     """.trimIndent()
 
     ipLabelEN.text = """
       English:
       Unconnected or disconnected
-      Please open Pure Writer for Android and click on its top cloud icon 
+      Please open Pure Writer for Android and click its top cloud icon 
       to get an IP address into the above input field
-      Once the correct IP is entered, it will be auto connected      
-      Note: The current Desktop version only works with Pure Writer 【v14.7.2】 or above
+      Once the correct IP is entered, it will be auto connected
+      Tips:
+      * If your IP address starts with 192.168.1, you can enter the last digit directly to connect automatically
       
-      Pure Writer Desktop v$version  ⇋  Pure Writer 14.7.2+
+      Pure Writer Desktop v$version  ⇋  Pure Writer v14.7.2+
+     The current Desktop only works with Pure Writer for Android v14.7.2 or above!
     """.trimIndent()
 
     ipLayout.isVisible = true
@@ -205,7 +208,10 @@ class PureWriter : Initializable {
   }
 
   private val ipObserver = ChangeListener<String> { _, _, newValue ->
-    val ip = newValue.trim().replace("。", ".")
+    var ip = newValue.trim().replace("。", ".")
+    if (!ip.contains(".")) {
+      ip = "192.168.1.$ip"
+    }
     Log.d("Input IP: $ip")
     if (ip.matches("((2(5[0-5]|[0-4]\\d))|[0-1]?\\d{1,2})(\\.((2(5[0-5]|[0-4]\\d))|[0-1]?\\d{1,2})){3}".toRegex())) {
       startNettyClient(ip)
