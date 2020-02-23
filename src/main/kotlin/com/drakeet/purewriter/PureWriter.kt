@@ -87,15 +87,13 @@ class PureWriter : Initializable {
         beginSyncing()
         mainStage.title = if (it.title.isNotEmpty()) it.title else "Untitled"
         contentView.replaceText(it.content)
-        // contentView.selectRange(it.selectionStart, it.selectionEnd)
+        // workaround to trigger focus
+        runCatching { contentView.selectRange(it.selectionStart - 1, it.selectionEnd - 1) }
+        Platform.runLater { contentView.selectRange(it.selectionStart, it.selectionEnd) }
         isSyncingSelection = false
         isSyncingTitle = false
         hideIP()
         hideEmpty()
-        // workaround to trigger focus
-        Platform.runLater {
-          contentView.selectRange(it.selectionStart, it.selectionEnd)
-        }
       }
 
     RxBus.event(EmptyArticleMessage::class)
