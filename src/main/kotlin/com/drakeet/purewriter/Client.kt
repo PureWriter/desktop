@@ -47,11 +47,16 @@ class Client {
 
   var channel: Channel? = null
 
+  @Volatile
+  private var isConnecting = false
+
   private var group: NioEventLoopGroup? = null
 
   fun start(ip: String, port: Int) {
     try {
       try {
+        if (isConnecting) return
+        isConnecting = true
         group = NioEventLoopGroup()
         val bootstrap = Bootstrap()
           .group(group!!)
@@ -76,6 +81,7 @@ class Client {
         Log.d("The server is successfully connected.")
 
         channel?.closeFuture()?.sync()
+        isConnecting = false
         Log.d("Connection is closed")
       } finally {
         try {
@@ -83,9 +89,11 @@ class Client {
         } catch (i: InterruptedException) {
           Log.d("Interrupted")
         }
+        isConnecting = false
       }
     } catch (e: InterruptedException) {
       e.printStackTrace()
+      isConnecting = false
     }
   }
 }
