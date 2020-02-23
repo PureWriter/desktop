@@ -12,12 +12,13 @@ import java.util.concurrent.TimeUnit
 object PingPongDelegate {
 
   var isJustDisconnected: Boolean = false
-  var timer: Disposable? = null
+  private var timer: Disposable? = null
 
+  @Volatile
   private var pinging = false
 
   init {
-    RxBus.event(Pong::class).subscribe { pong() }
+    // RxBus.event(Pong::class).subscribe { pong() }
   }
 
   fun ping(channel: Channel) {
@@ -34,8 +35,9 @@ object PingPongDelegate {
       }
   }
 
-  private fun pong() {
+  fun pong() {
     timer?.dispose()
+    timer = null
     pinging = false
   }
 

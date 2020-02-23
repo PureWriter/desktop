@@ -94,7 +94,7 @@ class PureWriter : Initializable {
         hideEmpty()
       }
 
-    RxBus.event(EmptyArticle::class)
+    RxBus.event(EmptyArticleMessage::class)
       .subscribe {
         showEmpty()
         hideIP()

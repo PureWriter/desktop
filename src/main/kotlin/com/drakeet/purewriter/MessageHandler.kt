@@ -32,9 +32,13 @@ class MessageHandler : SimpleChannelInboundHandler<PureWriterProtocol.Message>()
       Log.d("message.messageTyp: ${message.messageType}")
       when (message.messageType) {
         "ArticleMessage" -> RxBus.post(message.content.jsonTo(ArticleMessage::class))
-        "EmptyArticleMessage" -> RxBus.post(EmptyArticle())
+        "EmptyArticleMessage" -> RxBus.post(EmptyArticleMessage())
         "DisconnectMessage" -> context.disconnect()
-        "Pong" -> RxBus.post(Pong())
+        // No need now, we will directly call the pong()
+        // "Pong" -> RxBus.post(Pong())
+      }
+      if (message.messageType != "DisconnectMessage") {
+        PingPongDelegate.pong()
       }
     }
   }
