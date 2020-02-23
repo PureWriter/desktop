@@ -177,6 +177,7 @@ class PureWriter : Initializable {
       未连接或与手机断开
       请打开纯纯写作 Android 版并点击其顶部的云图标获得 IP 地址填于下方
       一旦输入正确 IP，它将自动连接
+      提示：你可以在 IP 地址中输入中文句号来替代英文句号，比如：1。1。1。1 将会被识别为 1.1.1.1
       注意：当前桌面版只支持与纯纯写作 【v14.7.2】 或以上版本搭配使用
     """.trimIndent()
 
@@ -204,7 +205,7 @@ class PureWriter : Initializable {
   }
 
   private val ipObserver = ChangeListener<String> { _, _, newValue ->
-    val ip = newValue.trim()
+    val ip = newValue.trim().replace("。", ".")
     Log.d("Input IP: $ip")
     if (ip.matches("((2(5[0-5]|[0-4]\\d))|[0-1]?\\d{1,2})(\\.((2(5[0-5]|[0-4]\\d))|[0-1]?\\d{1,2})){3}".toRegex())) {
       startNettyClient(ip)
