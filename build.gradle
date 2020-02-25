@@ -61,7 +61,7 @@ dependencies {
   compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
   // compile "com.squareup.okio:okio:2.3.0"
   compile 'io.netty:netty-all:4.1.45.Final'
-  compile 'com.google.protobuf:protobuf-java:3.9.1'
+  compile 'com.google.protobuf:protobuf-java:3.11.4'
   compile 'io.reactivex.rxjava2:rxjava:2.2.18'
   compile 'com.jakewharton.rxrelay2:rxrelay:2.1.1'
   compile 'com.google.code.gson:gson:2.8.5'
