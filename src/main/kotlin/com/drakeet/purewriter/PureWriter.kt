@@ -182,7 +182,7 @@ class PureWriter : Initializable {
       一旦输入正确 IP，它将自动连接
       提示：
       * 你可以在 IP 地址中输入中文句号来替代英文句号，比如：1。1。1。1 将会被识别为 1.1.1.1
-      * 如果您的 IP 地址是以 192.168.1 开头，则您可以直接输入最后一位数字即可自动连接
+      * 如果您的 IP 地址是以 192.168.1 开头，则您可以直接输入最后一组数字即可自动连接
     """.trimIndent()
 
     ipLabelEN.text = """
@@ -192,10 +192,10 @@ class PureWriter : Initializable {
       to get an IP address into the above input field
       Once the correct IP is entered, it will be auto connected
       Tips:
-      * If your IP address starts with 192.168.1, you can enter the last digit directly to connect automatically
+      * If your IP address starts with 192.168.1, you can enter the last number directly to connect automatically
       
       Pure Writer Desktop v$version  ⇋  Pure Writer v14.7.2+
-     The current Desktop only works with Pure Writer for Android v14.7.2 or above!
+      The current Desktop only works with Pure Writer for Android v14.7.2 or above!
     """.trimIndent()
 
     ipLayout.isVisible = true
