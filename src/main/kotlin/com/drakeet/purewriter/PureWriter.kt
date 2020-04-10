@@ -44,7 +44,7 @@ import java.util.*
 
 class PureWriter : Initializable {
 
-  private val version = "0.2"
+  private val version = "0.2.2"
 
   @FXML
   private lateinit var emptyView: Label
@@ -201,8 +201,8 @@ class PureWriter : Initializable {
       Tips:
       * If your IP address starts with 192.168.1, you can enter the last number directly to connect automatically
       
-      Pure Writer Desktop v$version  ⇋  Pure Writer v14.7.2+
-      The current Desktop only works with Pure Writer for Android v14.7.2 or above!
+      Pure Writer Desktop v$version  ⇋  Pure Writer v15.0.2+
+      The current Desktop only works with Pure Writer for Android v15.0.2 or above!
     """.trimIndent()
 
     ipLayout.isVisible = true
