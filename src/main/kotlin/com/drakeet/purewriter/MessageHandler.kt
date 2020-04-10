@@ -33,6 +33,7 @@ class MessageHandler : SimpleChannelInboundHandler<PureWriterProtocol.Message>()
       when (message.messageType) {
         "ArticleMessage" -> RxBus.post(message.content.jsonTo(ArticleMessage::class))
         "EmptyArticleMessage" -> RxBus.post(EmptyArticleMessage())
+        "WordCountMessage" -> RxBus.post(message.content.jsonTo(WordCountMessage::class))
         "DisconnectMessage" -> context.disconnect()
         // No need now, we will directly call the pong()
         // "Pong" -> RxBus.post(Pong())

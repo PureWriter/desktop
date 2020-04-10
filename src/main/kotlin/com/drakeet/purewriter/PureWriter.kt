@@ -63,6 +63,8 @@ class PureWriter : Initializable {
 
   private val channel: Channel? get() = client.channel
 
+  private var title = "Untitled"
+
   override fun initialize(location: URL?, resources: ResourceBundle?) {
     contentView.font = Font.loadFont(javaClass.getResourceAsStream("SourceHanSansCN-Light.ttf"), 16.toDouble())
     ipLabelCN.font = Font.loadFont(javaClass.getResourceAsStream("SourceHanSansCN-Light.ttf"), 14.toDouble())
@@ -85,7 +87,7 @@ class PureWriter : Initializable {
     RxBus.event(ArticleMessage::class)
       .subscribe {
         beginSyncing()
-        mainStage.title = if (it.title.isNotEmpty()) it.title else "Untitled"
+        mainStage.title = (if (it.title.isNotEmpty()) it.title else "Untitled").apply { title = this }
         contentView.replaceText(it.content)
         // workaround to trigger focus
         runCatching { contentView.selectRange(it.selectionStart - 1, it.selectionEnd - 1) }
@@ -94,6 +96,11 @@ class PureWriter : Initializable {
         isSyncingTitle = false
         hideIP()
         hideEmpty()
+      }
+
+    RxBus.event(WordCountMessage::class)
+      .subscribe {
+        mainStage.title = "$title · ${it.text}"
       }
 
     RxBus.event(EmptyArticleMessage::class)
