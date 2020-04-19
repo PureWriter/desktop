@@ -16,6 +16,14 @@ https://writer.drakeet.com/desktop
 
 * JDK 8
 
+### 第三方编译版本
+
+第三方编译的纯纯写作桌面版 for Linux & Windows **x86(32 位)** 版本
+
+https://purewriter.liaronce.com （下载链接在这个页面顶部，往下滑动可以获得更多说明）
+
+注意：第三方编译版本产生的任何问题与本人或纯纯写作无关，不负任何相关责任。您需要自行斟酌或考察后使用。
+
 ### LICENSE
 
 =======
