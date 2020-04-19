@@ -18,7 +18,7 @@ https://writer.drakeet.com/desktop
 
 ### 第三方编译版本
 
-第三方编译的纯纯写作桌面版 for Linux & Windows **x86(32 位)** 版本
+第三方编译的 Linux & Windows **x86(32 位)** 版本
 
 https://purewriter.liaronce.com （下载链接在这个页面顶部，往下滑动可以获得更多说明）
 
