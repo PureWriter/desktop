@@ -16,6 +16,10 @@ https://writer.drakeet.com/desktop
 
 * JDK 8
 
+### Download
+
+https://github.com/purewriter/desktop/releases
+
 ### 第三方编译版本
 
 第三方编译的 Linux & Windows **x86(32 位)** 版本
