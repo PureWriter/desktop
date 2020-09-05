@@ -29,7 +29,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<StackPane fx:id="rootLayout" prefHeight="540.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8.0.221" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drakeet.purewriter.PureWriter">
+<StackPane fx:id="rootLayout" prefHeight="540.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8.0.261" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drakeet.purewriter.PureWriter">
 
     <TextArea fx:id="contentView" maxWidth="720.0" prefHeight="540.0" promptText="Content" wrapText="true" BorderPane.alignment="CENTER">
         <padding>
