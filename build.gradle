@@ -5,18 +5,29 @@ buildscript {
 
   repositories {
     mavenLocal()
+    maven { url "https://maven.aliyun.com/repository/central" }
+    maven { url "https://maven.aliyun.com/repository/jcenter" }
     mavenCentral()
+  }
+
+  allprojects {
+    repositories {
+      mavenLocal()
+      maven { url "https://maven.aliyun.com/repository/central" }
+      maven { url "https://maven.aliyun.com/repository/jcenter" }
+      mavenCentral()
+    }
   }
 }
 
 plugins {
   id 'java'
-  id 'org.jetbrains.kotlin.jvm' version '1.3.71'
+  id 'org.jetbrains.kotlin.jvm' version '1.4.0'
 }
 apply plugin: 'javafx-gradle-plugin'
 
 group 'com.drakeet.purewriter'
-version '0.2.2'
+version '0.3.0'
 
 sourceCompatibility = 1.8
 
@@ -60,12 +71,13 @@ dependencies {
 
   compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
   // compile "com.squareup.okio:okio:2.3.0"
-  compile 'io.netty:netty-all:4.1.48.Final'
+  compile 'io.netty:netty-all:4.1.51.Final'
   compile 'com.google.protobuf:protobuf-java:3.11.4'
   compile 'io.reactivex.rxjava2:rxjava:2.2.19'
   compile 'com.jakewharton.rxrelay2:rxrelay:2.1.1'
   compile 'com.google.code.gson:gson:2.8.5'
   compile 'io.reactivex:rxjavafx:2.0.2'
+  compile 'com.github.houbb:opencc4j:1.6.0'
 }
 
 compileKotlin {

@@ -34,9 +34,11 @@ class Main : Application() {
   override fun start(stage: Stage) {
     mainStage = stage
     val root = FXMLLoader.load<Parent>(javaClass.getResource("editor.fxml"))
-    stage.title = "Pure Writer"
+    stage.title = stageTitle
     stage.scene = Scene(root, 968.0, 615.0).apply {
-      stylesheets.add(Main::class.java.getResource("editor.css").toExternalForm())
+      sheets = Main::class.java.getResource("editor.css").toExternalForm()
+      sheetsNight = Main::class.java.getResource("editor-night.css").toExternalForm()
+      setDarkMode(Settings.darkMode)
     }
     stage.show()
     stage.setOnCloseRequest {

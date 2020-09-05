@@ -35,6 +35,9 @@ import javafx.scene.control.IndexRange
 import javafx.scene.control.Label
 import javafx.scene.control.TextArea
 import javafx.scene.control.TextField
+import javafx.scene.image.Image
+import javafx.scene.image.ImageView
+import javafx.scene.layout.StackPane
 import javafx.scene.layout.VBox
 import javafx.scene.text.Font
 import javafx.util.Duration
@@ -44,20 +47,32 @@ import java.util.*
 
 class PureWriter : Initializable {
 
-  private val version = "0.2.2"
+  private val version = "0.3.0"
+  private val appVersion = "17.7.10"
 
   @FXML
   private lateinit var emptyView: Label
+
+  @FXML
+  private lateinit var rootLayout: StackPane
+
   @FXML
   private lateinit var ipLayout: VBox
+
   @FXML
-  private lateinit var ipLabelCN: Label
+  private lateinit var ipNoteLabel: Label
+
   @FXML
-  private lateinit var ipLabelEN: Label
+  private lateinit var ipBottomLabel: Label
+
   @FXML
   private lateinit var ipView: TextField
+
   @FXML
   private lateinit var contentView: TextArea
+
+  @FXML
+  private lateinit var dayNightSwitch: ImageView
 
   private val client = Client()
 
@@ -66,12 +81,21 @@ class PureWriter : Initializable {
   private var title = "Untitled"
 
   override fun initialize(location: URL?, resources: ResourceBundle?) {
+    rootLayout.styleClass.addAll("pane")
+    ipLayout.styleClass.addAll("pane")
+
     contentView.font = Font.loadFont(javaClass.getResourceAsStream("SourceHanSansCN-Light.ttf"), 16.toDouble())
-    ipLabelCN.font = Font.loadFont(javaClass.getResourceAsStream("SourceHanSansCN-Light.ttf"), 14.toDouble())
-    ipLabelEN.font = ipLabelCN.font
-    emptyView.font = ipLabelCN.font
+    ipNoteLabel.font = Font.loadFont(javaClass.getResourceAsStream("SourceHanSansCN-Light.ttf"), 14.toDouble())
+    ipBottomLabel.font = ipNoteLabel.font
+    emptyView.font = ipNoteLabel.font
     ipView.font = Font.loadFont(javaClass.getResourceAsStream("SourceHanSansCN-Light.ttf"), 18.toDouble())
+    dayNightSwitch.image = Image(javaClass.getResourceAsStream("moon.png"))
+    dayNightSwitch.setOnMouseClicked {
+      Settings.darkMode = (!Settings.darkMode)
+        .also { mainStage.scene.setDarkMode(it) }
+    }
     showIpViews()
+    ipView.text = Settings.ip
 
     RxBus.event(ChannelActive::class)
       .observeOn(platform())
@@ -89,6 +113,7 @@ class PureWriter : Initializable {
         beginSyncing()
         mainStage.title = (if (it.title.isNotEmpty()) it.title else "Untitled").apply { title = this }
         contentView.replaceText(it.content)
+        contentView.isVisible = true
         // workaround to trigger focus
         runCatching { contentView.selectRange(it.selectionStart - 1, it.selectionEnd - 1) }
         Platform.runLater { contentView.selectRange(it.selectionStart, it.selectionEnd) }
@@ -144,23 +169,30 @@ class PureWriter : Initializable {
   }
 
   private fun showEmpty() {
-    emptyView.text = """
-      中文：
+    emptyView.text = if (isZh) {
+      """
       未打开任何文章
       请在纯纯写作手机版中打开一篇文章
-      
-      English:
-      No article selected
-      Please open an article on Pure Writer mobile
-      
-      
-      Pure Writer Desktop v$version
-    """.trimIndent()
+
+      纯纯写作桌面版 v$version
+    """
+        .trimIndent()
+        .toTraditionalIfNeeded()
+    } else {
+      """
+        No article selected
+        Please open an article on Pure Writer mobile
+        
+        Pure Writer Desktop v$version
+      """
+        .trimIndent()
+    }
     emptyView.isVisible = true
     isSyncingContent = true
     contentView.replaceText("")
+    contentView.isVisible = false
     isSyncingTitle = true
-    mainStage.title = "Pure Writer"
+    mainStage.title = stageTitle
   }
 
   private fun hideEmpty() {
@@ -182,28 +214,42 @@ class PureWriter : Initializable {
       }
       return
     }
-    ipLabelCN.text = """
-      中文：
-      未连接或与手机断开
-      请打开纯纯写作 Android 版并点击其顶部的云图标获得 IP 地址填于下方
-      一旦输入正确 IP，它将自动连接
-      提示：
-      * 你可以在 IP 地址中输入中文句号来替代英文句号，比如：1。1。1。1 将会被识别为 1.1.1.1
-      * 如果您的 IP 地址是以 192.168.1 开头，则您可以直接输入最后一组数字即可自动连接
-    """.trimIndent()
+    ipNoteLabel.text = if (isZh) {
+      """
+        未连接或与手机断开
+        请打开纯纯写作 Android 版并点击其顶部的云图标获得 IP 地址填于下方
+        一旦输入正确 IP，它将自动连接
+        提示：
+        * 你可以在 IP 地址中输入中文句号来替代英文句号，比如：1。1。1。1 将会被识别为 1.1.1.1
+        * 如果您的 IP 地址是以 192.168.1 开头，则您可以直接输入最后一组数字即可自动连接
+      """
+        .trimIndent()
+        .toTraditionalIfNeeded()
+    } else {
+      """
+        Unconnected or disconnected
+        Please open Pure Writer for Android and click its top cloud icon 
+        to get an IP address into the below input field
+        Once the correct IP is entered, it will be auto connected
+        Tips:
+        * If your IP address starts with 192.168.1, you can enter the last number directly to connect automatically
+      """
+        .trimIndent()
+    }
 
-    ipLabelEN.text = """
-      English:
-      Unconnected or disconnected
-      Please open Pure Writer for Android and click its top cloud icon 
-      to get an IP address into the above input field
-      Once the correct IP is entered, it will be auto connected
-      Tips:
-      * If your IP address starts with 192.168.1, you can enter the last number directly to connect automatically
-      
-      Pure Writer Desktop v$version  ⇋  Pure Writer v15.0.2+
-      The current Desktop only works with Pure Writer for Android v15.0.2 or above!
-    """.trimIndent()
+    ipBottomLabel.text = if (isZh) {
+      """
+        纯纯写作桌面版 v$version  ⇋  纯纯写作 v$appVersion+
+        当前「纯纯写作桌面版」必须和「纯纯写作」v$appVersion 或以上版本才能正常协作
+      """
+        .trimIndent()
+        .toTraditionalIfNeeded()
+    } else {
+      """
+        Pure Writer Desktop v$version  ⇋  Pure Writer v$appVersion+
+        The current Desktop only works with Pure Writer for Android v$appVersion or above!
+      """.trimIndent()
+    }
 
     ipLayout.isVisible = true
     isSyncingTitle = true
@@ -255,6 +301,7 @@ class PureWriter : Initializable {
   private fun startNettyClient(ip: String) {
     if (lastConnectingIp == ip || ip.isBlank()) return
     lastConnectingIp = ip
+    Settings.ip = ip
     clientDisposable?.dispose()
     clientDisposable = Completable.fromAction { client.start(ip, 19621) }
       .retry(1)

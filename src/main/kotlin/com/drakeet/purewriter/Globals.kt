@@ -20,7 +20,9 @@
 
 package com.drakeet.purewriter
 
+import com.github.houbb.opencc4j.util.ZhConverterUtil
 import javafx.stage.Stage
+import java.util.*
 
 /**
  * @author Drakeet Xu
@@ -40,4 +42,22 @@ fun beginSyncing() {
 val isSyncing: Boolean
   get() {
     return isSyncingTitle || isSyncingContent || isSyncingSelection
+  }
+
+val isZh get() = Locale.getDefault().language == Locale.CHINA.language
+
+val isTraditionalChinese
+  get() = with(Locale.getDefault()) {
+    this == Locale.TRADITIONAL_CHINESE || this == Locale("zh", "HK")
+  }
+
+fun String.toTraditionalIfNeeded(): String {
+  if (!isZh) return this
+  return if (isTraditionalChinese) ZhConverterUtil.toTraditional(this) else this
+}
+
+val stageTitle
+  get() = when {
+    isZh -> "纯纯写作".toTraditionalIfNeeded()
+    else -> "Pure Writer"
   }
