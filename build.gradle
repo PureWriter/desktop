@@ -27,7 +27,7 @@ plugins {
 apply plugin: 'javafx-gradle-plugin'
 
 group 'com.drakeet.purewriter'
-version '0.3.0'
+version '0.3.1'
 
 sourceCompatibility = 1.8
 

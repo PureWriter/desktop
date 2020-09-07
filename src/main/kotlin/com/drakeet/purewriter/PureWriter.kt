@@ -47,7 +47,7 @@ import java.util.*
 
 class PureWriter : Initializable {
 
-  private val version = "0.3.0"
+  private val version = "0.3.1"
   private val appVersion = "17.7.10"
 
   @FXML
