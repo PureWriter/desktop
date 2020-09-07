@@ -209,7 +209,7 @@ class PureWriter : Initializable {
       if (ipView.text.isNotBlank() && !PingPongDelegate.isJustDisconnected) {
         ipObserver.changed(null, ipView.text, ipView.text)
       } else {
-        ipView.text = ""
+        ipView.text = Settings.ip
         PingPongDelegate.isJustDisconnected = false
       }
       return
