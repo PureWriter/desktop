@@ -58,9 +58,9 @@
     -fx-text-fill: black;
 }
 
-.text-area > .scroll-pane{
-  -fx-hbar-policy:never;
-  -fx-vbar-policy:never;
+.text-area > .scroll-pane {
+    -fx-hbar-policy: never;
+    -fx-vbar-policy: never;
 }
 
 .text-field {
@@ -90,4 +90,8 @@
 
 .label {
     -fx-text-fill: black;
+}
+
+.context-menu {
+    -fx-background-color: white;
 }
