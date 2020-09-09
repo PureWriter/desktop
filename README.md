@@ -20,6 +20,18 @@ https://writer.drakeet.com/desktop
 
 https://github.com/purewriter/desktop/releases
 
+### Arch Linux 
+
+Arch Linux 或者 基于Arch的发行版 (Manjaro 等), 可以使用 AUR Helper 从[AUR](https://aur.archlinux.org/packages/purewriter-desktop/) 安装
+
+例如,使用 `yay` 从 AUR 安装 `purewriter-desktop`
+
+```
+yay -S purewriter-desktop # 从源码构建的版本
+
+yay -S purewriter         # liaronce 第三方编译构建的版本
+```
+
 ### 第三方编译版本
 
 第三方编译的 Linux & Windows **x86(32 位)** 版本
