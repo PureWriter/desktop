@@ -12,33 +12,10 @@ https://writer.drakeet.com/desktop
 ./gradlew jfxNative
 ```
 
-### Requirements
-
-* JDK 8
-
-### Download
+# Download
 
 https://github.com/purewriter/desktop/releases
 
-### Arch Linux（第三方提供）
-
-Arch Linux 或者 基于 Arch 的发行版 (Manjaro 等)，可以使用 AUR Helper 从 [AUR](https://aur.archlinux.org/packages/purewriter-desktop/) 安装
-
-例如，使用 `yay` 从 AUR 安装 `purewriter-desktop`
-
-```
-yay -S purewriter-desktop # 从源码构建的版本
-
-yay -S purewriter         # liaronce 第三方编译构建的版本
-```
-
-### 第三方编译版本
-
-第三方编译的 Linux & Windows **x86(32 位)** 版本
-
-https://purewriter.liaronce.com （下载链接在这个页面顶部，往下滑动可以获得更多说明）
-
-注意：第三方编译版本产生的任何问题与本人或纯纯写作无关，不负任何相关责任。您需要自行斟酌或考察后使用。
 
 ### LICENSE
 
