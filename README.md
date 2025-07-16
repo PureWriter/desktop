@@ -1,6 +1,7 @@
 # Pure Writer Desktop
 
-https://writer.drakeet.com/desktop
+~~https://writer.drakeet.com/desktop~~
+https://writer.drakeet.com/desktop2
 
 ### [PureWriter](https://play.google.com/store/apps/details?id=com.drakeet.purewriter) for Android:
 
@@ -13,11 +14,6 @@ https://writer.drakeet.com/desktop
 ```
 ./gradlew jfxNative
 ```
-
-# Download
-
-https://github.com/purewriter/desktop/releases
-
 
 ### LICENSE
 
