@@ -9,7 +9,7 @@ This repository contains the source code of the earlier 1.x desktop app. The cur
 [Pure Writer](https://writer.drakeet.com/) (纯纯写作 · 純純寫作 · 純純執筆) is a fast plain text editor you can trust, with History, cloud sync and backups, and layers of protection against losing your work.
 
 - **Windows and macOS**: <https://writer.drakeet.com/desktop>
-- **iPhone and iPad**: [App Store](https://apps.apple.com/app/id6803257195)
+- **iPhone and iPad**: [App Store](https://apps.apple.com/app/id6803257195) · [About the iOS version](https://writer.drakeet.com/ios)
 - **Android**: [Google Play](https://play.google.com/store/apps/details?id=com.drakeet.purewriter)
 - **User manual**: [English](https://writer.drakeet.com/en/manual/) · [简体中文](https://writer.drakeet.com/zh-hans/manual/) · [繁體中文](https://writer.drakeet.com/zh-hant/manual/)
 
