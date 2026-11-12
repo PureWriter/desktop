@@ -1,11 +1,19 @@
 # Pure Writer Desktop
 
-~~https://writer.drakeet.com/desktop~~
-https://writer.drakeet.com/desktop2
+**Download the current Pure Writer Desktop for Windows and macOS from the official site: <https://writer.drakeet.com/desktop>**
 
-### [PureWriter](https://play.google.com/store/apps/details?id=com.drakeet.purewriter) for Android:
+This repository contains the source code of the earlier 1.x desktop app. The current desktop version is a separate app distributed from the official site; it syncs with your phone through a cloud drive.
 
-<a href='https://play.google.com/store/apps/details?id=com.drakeet.purewriter&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' width=200 height=77/></a>
+## Pure Writer
+
+[Pure Writer](https://writer.drakeet.com/) (纯纯写作 · 純純寫作 · 純純執筆) is a fast plain text editor you can trust, with History, cloud sync and backups, and layers of protection against losing your work.
+
+- **Windows and macOS**: <https://writer.drakeet.com/desktop>
+- **iPhone and iPad**: [App Store](https://apps.apple.com/app/id6803257195)
+- **Android**: [Google Play](https://play.google.com/store/apps/details?id=com.drakeet.purewriter)
+- **User manual**: [English](https://writer.drakeet.com/en/manual/) · [简体中文](https://writer.drakeet.com/zh-hans/manual/) · [繁體中文](https://writer.drakeet.com/zh-hant/manual/)
+
+## The 1.x desktop app
 
 ![Pure Writer Desktop](https://user-images.githubusercontent.com/5214214/115110118-57bb0e00-9fac-11eb-9270-2d83502405a3.png)
 
